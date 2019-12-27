@@ -129,19 +129,12 @@
                           </v-card-text>
                           <v-card-actions>
                             <v-spacer />
-                            <!-- コメントコンポーネント -->
-                            <v-btn
-                              outlined
-                              color="grey darken-1"
-                              @click="comments = !comments"
-                            >
-                              <v-icon>far fa-comment-dots</v-icon>
-                            </v-btn>
                             <!-- トピック削除コンポーネント -->
                             <DeleteBtn :topic="topic" />
                           </v-card-actions>
                           <v-slide-y-transition>
-                            <v-card-actions v-show="comments">
+                            <!-- コメントコンポーネント -->
+                            <v-card-actions>
                               <CommentArea :topic="topic" />
                             </v-card-actions>
                           </v-slide-y-transition>
@@ -169,11 +162,11 @@ export default {
     DeleteBtn
   },
   // railsのTopic/likesアクションにアクセスし、お気に入りトピックを取得
-  async asyncData({ $axios, route }) {
+  async asyncData({ $axios, store }) {
     const res = await $axios.get(
       process.env.apiBaseUrl + "/api/topics/mytopic",
       {
-        params: { user_id: route.params.user_id }
+        params: { user_id: store.state.auth.User.user.id }
       }
     )
     console.log(res)
