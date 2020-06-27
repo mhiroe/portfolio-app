@@ -5,13 +5,15 @@ services:
     image: mysql:5.7
     restart: always
     environment:
-        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        # MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        MYSQL_ROOT_PASSWORD: password
     volumes:
       - ./back/tmp/db:/var/lib/mysql
 
   back:
     build: ./back
-    command: /bin/sh -c "rm -f /app/tmp/pids/server.pid && bundle exec rails s puma -b ${BACKEND_HOST} -p 3000"
+    # command: /bin/sh -c "rm -f /app/tmp/pids/server.pid && bundle exec rails s puma -b ${BACKEND_HOST} -p 3000"
+    command: /bin/sh -c "rm -f /app/tmp/pids/server.pid && sh"
     volumes:
       - ./back:/app
       - backend-bundle:/usr/local/bundle

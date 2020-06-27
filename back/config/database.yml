@@ -18,7 +18,7 @@ development:
   <<: *default
   database: app_development
   username: root
-  password: <%= ENV.fetch("MYSQL_ROOT_PASSWORD") { '' } %>
+  password: password
   host: db
 
 # Warning: The database defined as "test" will be erased and
